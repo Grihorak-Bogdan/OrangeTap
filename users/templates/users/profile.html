@@ -17,6 +17,8 @@
 		
 	{%if is_my %}
 		<a class="btn_redag" href="{% url 'users:edit'%}">Редагувати профіль</a>
+	{% else %}
+		<input  type="submit"value="add friend" class="btn_redag" href="{% url 'users:add_friend'%}">
 	{%endif%}
 	</div>
 	

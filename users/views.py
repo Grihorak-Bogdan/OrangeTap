@@ -22,6 +22,11 @@ def edit(request):
 	} )
 
 
+def add_friend(request):
+	print(id)
+	return HttpResponseRedirect(reverse('users:main_page'))
+
+
 def login(request):
 	if request.method == 'POST':
 		form = UserLoginForm(data=request.POST)
