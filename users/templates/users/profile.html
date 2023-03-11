@@ -17,6 +17,8 @@
 		
 	{%if is_my %}
 		<a class="btn_redag" href="{% url 'users:edit'%}">Редагувати профіль</a>
+	{% else %}
+		<a class="btn_redag" href="{% url 'users:add_friend'%}">Додати друга</a>
 	{%endif%}
 	</div>
 	

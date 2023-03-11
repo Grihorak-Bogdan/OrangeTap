@@ -8,7 +8,7 @@ class User(AbstractUser):
 	friends = models.ManyToManyField('Friend', related_name = "my_friends" , blank=True)
 
 class Friend(models.Model):
-	profile = models.OneToOneField(User, on_delete=models.CASCADE )
+	profile = models.OneToOneField(User, on_delete=models.CASCADE)
 	
 	def __str__(self):
 		return self.profile.username
