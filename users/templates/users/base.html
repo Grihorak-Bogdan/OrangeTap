@@ -1,0 +1,58 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="UA">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="{% static 'orange.png'%}">
+	{% block css %}
+	
+	{% endblock css %}
+	<link rel="stylesheet" href="{% static 'main_page.css' %}">
+	<title>OrangeTap</title>
+</head>
+<body>
+	<header class="header">
+		<div class="conteiner conteiner_size">
+			<a href="{% url 'users:main_page'%}">
+				<div class="logo" >
+				
+					<img src="{% static 'orange.png'%}" alt="logo">
+					<h2>OrangeTap</h2>
+				
+				</div>
+			</a>
+			<div class="href">
+				{% csrf_token %} 
+				{%if auth == True%}
+				
+					<a href="{% url 'users:profile' user.username%}"><img style="width:30px; margin-top: 10px" src="{% static 'profil.png'%}" alt="" ></a>
+					<a href="{% url 'users:direct' %}">Чат</a>
+					<a href="{% url 'users:logout'%}">Вийти</a>
+				{% else %}
+					<a href="{% url 'users:login' %}">Увійти</a>
+				{% endif %}
+
+			</div>
+	
+		</div>
+	</header>
+
+	
+	{% block content%}
+	
+	{% endblock %}
+
+
+	<footer class="footer">
+		<div class="conteiner">
+			<p>2023</p>
+			<p>blytch</p>
+		</div>
+		
+	</footer>
+	<script src="{% static 'script.js'%}"></script>
+</body>
+</html>

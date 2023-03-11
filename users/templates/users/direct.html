@@ -1,0 +1,40 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{%block css%}
+<link rel="stylesheet" href="{% static 'main_page.css' %}">
+<link rel="stylesheet" href="{% static 'styles.css' %}">
+{%endblock%}
+
+{% block content%}
+	<main class="user_border">
+		<div class="user_conteiner">
+			<h2>Direct</h2>
+			
+			{%for Friend in friends %}
+				<a class="user_link" href="{% url 'users:chat' Friend.id %}"> {{Friend}} <div class="msg">0</div></a>
+			{% endfor %}
+			
+			</div>
+		</div>
+	</main>
+	<script>
+		setInterval(getNotification, 1000)
+
+    function getNotification(){
+      let url = "{% url 'users:notification' %}"
+
+      fetch(url)
+      .then(res=>res.json())
+      .then(data=>{
+        console.log(data)
+        let chatNotificationBtn = document.getElementsByClassName("msg")
+        for(let i = 0; i<data.length; i++){
+          chatNotificationBtn[i].innerText = data[i]
+        }
+      })
+      .catch(error => console.log(error))
+    }
+	</script>
+
+{% endblock %}

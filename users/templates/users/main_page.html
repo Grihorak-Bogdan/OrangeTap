@@ -1,0 +1,28 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{%block css%}
+<link rel="stylesheet" href="{% static 'main_page.css' %}">
+{%endblock%}
+
+{% block content%}
+
+	<main class="user_border">
+		<p>Вітаємо!</p>
+		<p>Проект ще в розробці і це ще демо в квадраті тому будь ласка сильно не бийте по лицю</p>
+		<div class="search_user">
+		{% for all_users in all_user%}
+				<a class="user_link" href="{% url 'users:profile' all_users.username %}">{{ all_users.username }}</a>
+		{% endfor %}
+		</div>
+	</main>
+{% endblock %}
+
+
+
+
+
+
+
+
+

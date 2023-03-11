@@ -1,0 +1,60 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{% static 'styles.css' %}/">
+	<link rel="icon" href="{% static 'orange.png'%}">
+	<title>{{ title|title }}</title>
+</head>
+
+<body>
+	<conteiner class="conteiner">
+		<form action="{% url 'users:register' %}" method="post">
+			{% csrf_token %}
+			<div id="register">
+				<p><img src="{% static 'orange.png'%}" style="width: 150px;" alt=""></p>
+				<h1>Зареєструватися</h1>
+				<div class="group">
+					<label id="login" for="">Логін:</label>
+					{{ form.username }}
+				</div>
+				<div class="group">
+					<label id="login" for="">Ім'я:</label>
+					{{ form.first_name }}
+				</div>
+				<div class="group">
+					<label id="login" for="">Прізвище:</label>
+					{{ form.last_name }}
+				</div>
+				<div class="group">
+					<label id="login" for="">Email:</label>
+					{{ form.email }}
+				</div>
+				<div class="group">
+					<label id="password" for="">Пароль:</label>
+					{{ form.password1 }}
+				</div>
+				<div class="group">
+					<label id="password" for="">Повторіть пароль:</label>
+					{{ form.password2 }}
+				</div>
+			</div>
+
+			<div class="btn">
+				<a href="{% url 'users:login' %}" class="submit">Повернутися</a>
+				<input type="submit" value="Зареєструватися" class="submit">
+			</div>
+		</form>
+
+		
+	</conteiner>
+
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{% static 'styles.css' %}/">
+	<link rel="icon" href="{% static 'orange.png'%}">
+	<title>{{ title|title }}</title>
+</head>
+
+<body>
+	<conteiner class="conteiner">
+		
+		<form action="{% url 'users:login' %}" method="post">
+			{% csrf_token %}
+			<div id="sing">
+				<p><img src="{% static 'orange.png'%}" style="width: 150px;" alt=""></p>
+				<h1>Вхід</h1>
+					{%if form.non_field_errors %}
+						<div class="errors" role="alert">
+						{{ form.non_field_errors.as_text }}
+						<p>sdf</p>
+						</div>
+					{%endif%}
+				<div class="group"> 
+					<label id="login" for="">Логін:</label>
+					{{ form.username }}
+				</div>
+				<div class="group">
+					<label id="password" for="">Пароль:</label>
+					{{ form.password }}
+				</div>
+			</div>
+
+			<div class="btn">
+				<input type="submit" value="Увійти" class="submit">
+				<a href="{% url 'users:register'%}" class="submit">Зареєструватися</a>
+				
+			</div>
+		</form>
+
+		
+	</conteiner>
+
+</body>
+
+</html>
