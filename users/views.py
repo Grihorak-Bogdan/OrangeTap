@@ -23,8 +23,6 @@ def edit(request):
 	} )
 
 
-def add_friend( request  ):
-	pass
 
 def login(request):
 	
@@ -71,6 +69,16 @@ def register(request ):
 def profile(request , username ):
 	obj = User.objects.get(username=username)
 	is_my = request.user.id == obj.id
+	
+	if request.method == "POST":
+		current_user_profile = request.user
+		action = request.POST['follow']
+		if action == "unfollow":
+			current_user_profile.friends.remove(obj)
+		elif action == "follow":
+			current_user_profile.friends.add(obj)
+		current_user_profile.save()
+
 	return render(request, 'users/profile.html' , {
 	'obj': obj , 
 	'is_my': is_my ,

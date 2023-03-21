@@ -18,9 +18,13 @@
 	{%if is_my %}
 		<a class="btn_redag" href="{% url 'users:edit'%}">Редагувати профіль</a>
 	{% else %}
-	<form action="{% url 'users:add_friend' %}" method="post">
+	<form method="POST">
 		{% csrf_token %}
-			<input type="submit" value="Add friends" class="btn_redag">
+		{%if obj in user.friends.all %}
+			<button type="submit" value="unfollow" class="btn_redag" name="follow">Unfollow</button>
+		{%else%} 
+			<button type="submit" value="follow" class="btn_redag" name="follow">Follow</button>
+		{% endif %}
 	</form>
 	{%endif%}
 	</div>
