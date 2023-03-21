@@ -11,8 +11,8 @@
 		<div class="user_conteiner">
 			<h2>Direct</h2>
 			
-			{%for Friend in friends %}
-				<a class="user_link" href="{% url 'users:chat' Friend.id %}"> {{Friend}} <div class="msg">0</div></a>
+			{%for Friends in friends %}
+				<a class="user_link" href="{% url 'users:chat' Friends.id %}"> {{Friends}} <div class="msg">0</div></a>
 			{% endfor %}
 			
 			</div>

@@ -18,7 +18,10 @@
 	{%if is_my %}
 		<a class="btn_redag" href="{% url 'users:edit'%}">Редагувати профіль</a>
 	{% else %}
-		<input  type="submit"value="add friend" class="btn_redag" href="{% url 'users:add_friend'%}">
+	<form action="{% url 'users:add_friend' %}" method="post">
+		{% csrf_token %}
+			<input type="submit" value="Add friends" class="btn_redag">
+	</form>
 	{%endif%}
 	</div>
 	

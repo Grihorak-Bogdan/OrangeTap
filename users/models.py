@@ -5,13 +5,7 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
 	image = models.ImageField(upload_to='users_images', null=True , blank=True)
-	friends = models.ManyToManyField('Friend', related_name = "my_friends" , blank=True)
-
-class Friend(models.Model):
-	profile = models.OneToOneField(User, on_delete=models.CASCADE)
-	
-	def __str__(self):
-		return self.profile.username
+	friends = models.ManyToManyField('user', related_name = "myfriends" , blank=True)
 
 class ChatMessage(models.Model):
 	body = models.TextField()
