@@ -21,7 +21,7 @@ body {
 .conteiner {
 	margin: auto;
 	padding: 40px 30px;
-	background-color: #FF7518;
+
 	border-radius: 20px;
 }
 
@@ -137,6 +137,23 @@ label {
 	left: 10vw;
 }
 
+
+.error_border{
+	background-color: darkgoldenrod;
+	font-size: 1rem;
+	font-weight: 700;
+	border-radius: 2rem;
+	padding: 1rem;
+	margin: 1rem auto;
+	max-width: 30rem;
+	
+}
+
+.log_and_reg{
+	background-color: #FF7518;
+	padding: 5rem 2.5rem;
+	border-radius: 2rem;
+}
 
 .button-74 {
   background-color: #cb5b00;

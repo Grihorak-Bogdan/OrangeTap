@@ -72,8 +72,12 @@ body {
 
 
 /*main*/
-
+.welcome {
+	padding: 0 10px;
+	
+}
 .user_border {
+	display: grid;
 	margin: 50px auto ;
 	padding: 40px 30px;
 	width: 60rem;
@@ -122,7 +126,6 @@ background: linear-gradient(315deg, #ff7d1a, #e66916);
 	color: #FF7518;
 	border: 1px solid ;
 	border-radius: 20px;
-	margin-top: 60px;
 }
 .ava {
 	margin: 0 auto 20px;
@@ -133,7 +136,6 @@ background: linear-gradient(315deg, #ff7d1a, #e66916);
 }
 
 .search_user {
-	width: 200px;
 	margin-left: auto;
 	height: 50vh;
 	scrollbar-width: none;
@@ -189,5 +191,8 @@ box-shadow:  -5px -5px 9px #d17439,
 	.user_border {
 	width: 90%;
 	height: 110%;
+	}
+	.user_border {
+		display: block;
 	}
 }

@@ -15,11 +15,17 @@
 
 <body>
 	<conteiner class="conteiner">
-		<form action="{% url 'users:register' %}" method="post">
+		{% if form.errors%}
+			<div class='error_border' role="alert" >
+				{{form.errors}}
+			</div>
+		{% endif %}
+		<form  class="log_and_reg" action="{% url 'users:register' %}" method="post">
 			{% csrf_token %}
 			<div id="register">
 				<p><img src="{% static 'orange.png'%}" style="width: 150px;" alt=""></p>
 				<h1>Зареєструватися</h1>
+				
 				<div class="group">
 					<label id="login" for="">Логін:</label>
 					{{ form.username }}

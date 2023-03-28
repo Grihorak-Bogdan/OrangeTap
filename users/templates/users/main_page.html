@@ -8,12 +8,14 @@
 {% block content%}
 
 	<main class="user_border">
-		<p>Вітаємо!</p>
-		<p>Проект ще в розробці і це ще демо в квадраті тому будь ласка сильно не бийте по лицю</p>
+		<div class="welcome"> 
+			<p>Вітаємо!</p>
+			<p>Привіт і ласкаво просимо до нашої соціальної мережі! Ми надіємося, що ви знайдете у нашій спільноті все, що потрібно для підтримки зв'язків. Будь ласка, не соромтеся звернутися до нас за допомогою, якщо у вас є які-небудь запитання чи потреби. Бажаємо вам приємного перебування та вдалих переписок.</p>
+		</div>
 		<div class="search_user">
-		{% for all_users in all_user%}
+			{% for all_users in all_user%}
 				<a class="user_link" href="{% url 'users:profile' all_users.username %}">{{ all_users.username }}</a>
-		{% endfor %}
+			{% endfor %}
 		</div>
 	</main>
 {% endblock %}

@@ -1,12 +1,16 @@
-from django.shortcuts import render, HttpResponseRedirect , redirect
-from django.urls import reverse
-from django.contrib import auth
-from django.contrib.auth import logout
-from users.models import User , ChatMessage 
-from users.form import UserLoginForm , UserRegistrationForm , UserProfileForm , ChatMessageForm
-from django.http import JsonResponse
 import json
+
+from django.contrib import auth, messages
+from django.contrib.auth import logout
 from django.db.models import QuerySet
+from django.http import JsonResponse
+from django.shortcuts import HttpResponseRedirect, redirect, render
+from django.urls import reverse
+
+from users.form import (ChatMessageForm, UserLoginForm, UserProfileForm,
+                        UserRegistrationForm)
+from users.models import ChatMessage, User
+
 # Create your views here.
 
 def edit(request):
@@ -35,12 +39,10 @@ def login(request):
 			if user and user.is_active:
 				auth.login(request, user)
 				return HttpResponseRedirect(reverse('users:main_page'))
-			else:
-				print(form.errors)
 	else:
 		form = UserLoginForm()
-	form = UserLoginForm()
-	context = {'form' : UserLoginForm()}
+	
+	context = {'form' : form}
 	return render(request, 'users/login.html' , context)
 
 
@@ -59,6 +61,7 @@ def register(request ):
 		form = UserRegistrationForm(data=request.POST)
 		if form.is_valid():
 			form.save()
+			messages.success(request, 'Вітаю! Ви успішно зареєструвались)')
 			return HttpResponseRedirect(reverse('users:login'))
 	else:
 		form = UserRegistrationForm()
@@ -66,7 +69,7 @@ def register(request ):
 	return render(request, 'users/register.html' , context)
 
 
-def profile(request , username ):
+def profile(request , username):
 	obj = User.objects.get(username=username)
 	is_my = request.user.id == obj.id
 	
@@ -98,10 +101,6 @@ def direct(request):
 		"auth": request.user.is_active ,
 	})
 
-
-
-
-
 def chat(request , id):
 	friend = User.objects.get(id=id)
 	
@@ -119,12 +118,11 @@ def chat(request , id):
 			chat_message.msg_receiver = profile
 			chat_message.save()
 			return redirect("users:chat", id=friend.id)
-		
 	return render(request, 'users/chat.html', {
 		"friend" : friend, 
 		"form" : form,
 		"user" : user,
-		"profile" : profile ,
+		"profile" : profile,
 		"chats": chats,
 		"num": rec_chats.count(),
 		"auth": request.user.is_active ,
@@ -136,7 +134,7 @@ def sentMessages(request, id):
 	profile = User.objects.get(id=friend.id)
 	data = json.loads(request.body)
 	new_chat = data["msg"]
-	new_chat_message = ChatMessage.objects.create(body=new_chat, msg_sender=user, msg_receiver=profile, seen=False )
+	new_chat_message = ChatMessage.objects.create(body=new_chat,msg_sender=user,msg_receiver=profile,seen=False)
 	return JsonResponse(new_chat_message.body, safe=False)
 
 def receivedMessages(request, id):

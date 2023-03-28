@@ -1,7 +1,9 @@
-from django.contrib.auth.forms import AuthenticationForm , UserCreationForm ,UserChangeForm
-from users.models import User , ChatMessage
 from django import forms
+from django.contrib.auth.forms import (AuthenticationForm, UserChangeForm,UserCreationForm)
 from django.forms import ModelForm
+
+from users.models import ChatMessage, User
+
 
 class UserLoginForm(AuthenticationForm):
 	username = forms.CharField(widget=forms.TextInput(attrs={'class': 'input', 'placeholder': 'Уведіть'}))
@@ -34,17 +36,17 @@ class UserProfileForm(UserChangeForm):
 	first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'input' , 'placeholder': 'Уведіть' , 'readonly': True}))
 	last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'input' , 'placeholder': 'Уведіть' , 'readonly': True}))
 	username = forms.CharField(widget=forms.TextInput(attrs={'class': 'input', 'placeholder': 'Уведіть'}))
-	image = forms.ImageField(widget=forms.FileInput(attrs={ 'placeholder': 'Уведіть'}),required=False)
+	
 	
 	email = forms.CharField(widget=forms.EmailInput(attrs={'class': 'input', 'placeholder': 'Уведіть' , 'readonly': True}))
 	class Meta:
 		model = User
-		fields = ('first_name', 'last_name','username', 'image', 'email' )
+		fields = ('first_name', 'last_name','username', 'email' )
 
 
 
 class ChatMessageForm(ModelForm):
-	body = forms.CharField(widget=forms.Textarea(attrs={'class' : 'inputmsg' , 'rows':3, 'placeholder': 'Уведіть ' }))
+	body = forms.CharField(widget=forms.Textarea(attrs={'class' : 'inputmsg' , 'rows':3, 'placeholder': 'Уведіть'}))
 	class Meta:
 		model = ChatMessage
 		fields = ('body', )

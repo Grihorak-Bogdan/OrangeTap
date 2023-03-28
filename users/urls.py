@@ -1,15 +1,16 @@
 from django.urls import path
-from . import views
 
+from . import views
+from django.views.decorators.cache import cache_page
 app_name = 'users'
 
 urlpatterns = [
 	path('edit/', views.edit , name='edit'),
 
 	path('logout/', views.logout , name='logout'),
-	path('login/', views.login , name='login'),
+	path('login/', cache_page(30)(views.login) , name='login'),
 	path('', views.main_page , name='main_page'),
-	path('register/', views.register , name='register'),
+	path('register/',cache_page(30)(views.register) , name='register'),
 	
 	path('direct/', views.direct , name='direct'),
 	path('friend/<int:id>/', views.chat , name="chat"),

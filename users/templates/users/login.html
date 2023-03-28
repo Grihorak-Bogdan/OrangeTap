@@ -15,18 +15,25 @@
 
 <body>
 	<conteiner class="conteiner">
-		
-		<form action="{% url 'users:login' %}" method="post">
+		{% if messages or form.non_field_errors%}
+			<div class='error_border' role="alert" >
+				{%if messages%}
+					{%for message in messages%}
+						{{message}}
+					{% endfor %}
+				{% else %}
+				{{form.non_field_errors}}
+				{%endif%}
+				
+			</div>	
+		{% endif %}
+		<form class='log_and_reg' action="{% url 'users:login' %}" method="post">
 			{% csrf_token %}
 			<div id="sing">
 				<p><img src="{% static 'orange.png'%}" style="width: 150px;" alt=""></p>
+				
 				<h1>Вхід</h1>
-					{%if form.non_field_errors %}
-						<div class="errors" role="alert">
-						{{ form.non_field_errors.as_text }}
-						<p>sdf</p>
-						</div>
-					{%endif%}
+					
 				<div class="group"> 
 					<label id="login" for="">Логін:</label>
 					{{ form.username }}

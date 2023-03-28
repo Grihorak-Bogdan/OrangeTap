@@ -14,10 +14,12 @@
 				{% csrf_token %}
 				<div id="register">
 					<h2>Редагувати профіль</h2>
-					<div class="group">
-						<label id="login" for="{{ form.image.id_for_label }}">Фото:</label>
-						{{ form.image }}
-					</div>
+					{% if form.errors%}
+						<div class='error_border' role="alert" >
+							{{form.errors}}
+						</div>
+					{% endif %}
+					
 					<div class="group">
 						<label id="login" for="{{ form.username.id_for_label }}">Логін:</label>
 						{{ form.username }}
