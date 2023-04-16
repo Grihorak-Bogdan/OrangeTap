@@ -1,0 +1,10 @@
+.content-block{
+  height: 100vh;
+  width: 100%;
+  background-color: #b5b5ff;
+  transition: all .7s ease;
+
+  &__container{
+    height: 100%;
+  }
+}

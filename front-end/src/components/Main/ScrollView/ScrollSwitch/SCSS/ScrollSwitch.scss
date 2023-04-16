@@ -1,0 +1,104 @@
+.switch{
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: rgba(1,10,40,.45);
+  list-style: none;
+  position: relative;
+
+  &__image{
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-25%,-3rem) scale(.5);
+    width: 3.75rem;
+    transition: all .7s;
+
+    &_hold{
+      transform: translate(-10%,-30%) scale(1);
+    }
+
+    &_show, &_reverse-show{
+      animation-duration: 1s;
+    }
+
+    &_hide, &_reverse-hide{
+      animation-duration: 2s;
+    }
+
+    &_show{
+      animation-name: image-show;
+    }
+
+    &_reverse-show{
+      animation-name: image-reverse-show;
+    }
+
+    &_hide{
+      animation-name: image-hide;
+    }
+
+    &_reverse-hide{
+      animation-name: image-reverse-hide;
+    }
+  }
+
+  &_overflow{
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  &:not(:last-child){
+    margin-bottom: 1rem;
+  }
+}
+
+
+
+@keyframes image-hide{
+  0%{
+    transform: translate(-10%,-30%) scale(1);
+  }
+  20%{
+    transform: translate(-25%,-25%) scale(.5);
+  }
+  100%{
+    transform: translate(-25%,5rem) scale(.5);
+  }
+}
+
+@keyframes image-reverse-hide{
+  0%{
+    transform: translate(-10%,-30%) scale(1);
+  }
+  20%{
+    transform: translate(-25%,-25%) scale(.5);
+  }
+  100%{
+    transform: translate(-25%,-5rem) scale(.5);
+  }
+}
+
+@keyframes image-show{
+  0%{
+    transform: translate(-25%,-3rem) scale(.5);
+  }
+  80%{
+    transform: translate(-25%,-25%) scale(.5);
+  }
+  100%{
+    transform: translate(-10%,-30%) scale(1);
+  }
+}
+
+@keyframes image-reverse-show{
+  0%{
+    transform: translate(-25%,3rem) scale(.5);
+  }
+  80%{
+    transform: translate(-25%,-25%) scale(.5);
+  }
+  100%{
+    transform: translate(-10%,-30%) scale(1);
+  }
+}

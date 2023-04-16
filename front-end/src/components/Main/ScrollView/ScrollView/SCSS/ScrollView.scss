@@ -1,0 +1,11 @@
+.scroll-view{
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 3rem;
+
+  &__switcher{
+    margin: 0;
+    padding: 0;
+  }
+}
