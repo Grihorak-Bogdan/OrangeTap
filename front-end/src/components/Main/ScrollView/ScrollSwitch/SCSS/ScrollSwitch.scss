@@ -19,11 +19,11 @@
     }
 
     &_show, &_reverse-show{
-      animation-duration: 1s;
+      animation-duration: .5s;
     }
 
     &_hide, &_reverse-hide{
-      animation-duration: 2s;
+      animation-duration: 1s;
     }
 
     &_show{

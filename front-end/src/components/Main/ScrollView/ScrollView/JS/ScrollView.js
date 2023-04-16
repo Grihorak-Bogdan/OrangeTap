@@ -65,7 +65,7 @@ function ScrollView(){
   function moveContentBlock(move){
     let timer = setInterval(()=>{
       activeNumTimer += 100
-      if(activeNumTimer === 1700){
+      if(activeNumTimer === 1000){
         canMove = true
         clearInterval(timer)
       }
@@ -97,15 +97,16 @@ function ScrollView(){
         setTimeout(()=>{
           if(move){ switchButtons[i].querySelector("img").classList.add("switch__image_show") } 
           else {    switchButtons[i].querySelector("img").classList.add("switch__image_reverse-show") }
-        },700)
-        setTimeout(()=>{
-          switchButtons[i].classList.remove("switch_overflow");
+        },400)
 
+        setTimeout(()=>{switchButtons[i].classList.remove("switch_overflow")},650)
+
+        setTimeout(()=>{
           if(move){ switchButtons[i].querySelector("img").classList.remove("switch__image_show") } 
           else {    switchButtons[i].querySelector("img").classList.remove("switch__image_reverse-show") }
 
           switchButtons[i].querySelector("img").classList.add("switch__image_hold");
-        },1600)
+        },900)
       }
     }
   }
