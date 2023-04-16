@@ -3,47 +3,54 @@ import ScrollSwitch from "../../ScrollSwitch/JS/ScrollSwitch";
 import "../CSS/ScrollView.css"
 
 function ScrollView(){
-  let contentBlocks = document.getElementsByClassName("content-block");
-  let switchButtons = document.getElementsByClassName("scroll-view__switcher__switch");
+  const contentBlocks = document.getElementsByClassName("content-block");
+  const switchButtons = document.getElementsByClassName("scroll-view__switcher__switch");
 
   let activeNum = 0
-  let activeNumTimer = 1000
   let canMove = true
+  let activeNumTimer = 1000
 
   let x1 = null;
   let y1 = null;
 
+  function init(){
+    catchWheel()
+    catchTouch()
+  }
+
   function catchWheel(){
     if (window.addEventListener) { 
       if ('onwheel' in document) { 
-        window.addEventListener("wheel", onWheel); 
+        window.addEventListener("wheel", onWheelHandler); 
       } else if ('onmousewheel' in document) { 
-        window.addEventListener("mousewheel", onWheel); 
+        window.addEventListener("mousewheel", onWheelHandler); 
       } else {
-        window.addEventListener("MozMousePixelScroll", onWheel); } 
+        window.addEventListener("MozMousePixelScroll", onWheelHandler); } 
     } else { 
-      window.attachEvent("onmousewheel", onWheel); 
+      window.attachEvent("onmousewheel", onWheelHandler); 
     } 
   }
 
-  function onWheel(e) { 
-    e = e || window.event;  
-    let delta = e.deltaY || e.detail || e.wheelDelta;  
-    delta>0 ? changeActiveNum(true) : changeActiveNum(false); 
+  function onWheelHandler(e) {
+    if(canMove){
+      e = e || window.event;  
+      let delta = e.deltaY || e.detail || e.wheelDelta;  
+      delta>0 ? changeActiveNum(true) : changeActiveNum();
+    }
   }
 
   function catchTouch(){
-    document.addEventListener('touchstart', handleTouchStart, false);
-    document.addEventListener('touchmove', handleTouchMove, false);
+    document.addEventListener('touchstart', touchStartHandler, false);
+    document.addEventListener('touchmove', touchMoveHandler, false);
   }
 
-  function handleTouchStart(event) {
+  function touchStartHandler(event) {
     let firstTouch = event.touches[0];
     x1 = firstTouch.clientX;
     y1 = firstTouch.clientY;
   }
 
-  function handleTouchMove(event) {
+  function touchMoveHandler(event) {
     if (!x1 || !y1) {
       return false;
     }
@@ -58,7 +65,7 @@ function ScrollView(){
     }
   }
   
-  function switchByClick(num){
+  function switchByClickHandler(num){
     changeActiveNum(activeNum<num,num)
   } 
 
@@ -132,15 +139,14 @@ function ScrollView(){
     }
   }
 
-  catchWheel()
-  catchTouch()
-
+  init()
+  
   return (
     <div className="scroll-view">
       <ul className="scroll-view__switcher">
-        <ScrollSwitch onClick={()=>{switchByClick(0)}} imageClassName="switch__image_hold" id="0"/>
-        <ScrollSwitch onClick={()=>{switchByClick(1)}} className="switch_overflow" id="1"/>
-        <ScrollSwitch onClick={()=>{switchByClick(2)}} className="switch_overflow" id="2"/>
+        <ScrollSwitch onClick={()=>{switchByClickHandler(0)}} imageClassName="switch__image_hold" id="0"/>
+        <ScrollSwitch onClick={()=>{switchByClickHandler(1)}} className="switch_overflow" id="1"/>
+        <ScrollSwitch onClick={()=>{switchByClickHandler(2)}} className="switch_overflow" id="2"/>
       </ul>
     </div>
   );
