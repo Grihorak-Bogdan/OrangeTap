@@ -3,6 +3,7 @@ import ScrollSwitch from "../../ScrollSwitch/JS/ScrollSwitch";
 import "../CSS/ScrollView.css"
 
 function ScrollView(){
+  const scrollSwitches = getScrollSwitches()
   const contentBlocks = document.getElementsByClassName("content-block");
   const switchButtons = document.getElementsByClassName("scroll-view__switcher__switch");
 
@@ -66,7 +67,9 @@ function ScrollView(){
   }
   
   function switchByClickHandler(num){
-    changeActiveNum(activeNum<num,num)
+    if(activeNum!==num){
+      changeActiveNum(activeNum<num,num)
+    }
   } 
 
   function moveContentBlock(move){
@@ -139,14 +142,40 @@ function ScrollView(){
     }
   }
 
+  function getScrollSwitches(){
+    let scrollSwitches = []
+
+    for (let i = 0; i < 3; i++) {
+      if(i===0){
+        scrollSwitches.push(
+          <ScrollSwitch 
+            onClick={switchByClickHandler} 
+            imageClassName='switch__image_hold'
+            key={i} 
+            id={i}
+          />
+        )
+      } else {
+        scrollSwitches.push(
+          <ScrollSwitch 
+            onClick={switchByClickHandler} 
+            className="switch_overflow"
+            key={i} 
+            id={i}
+          />
+        )
+      }
+    }
+
+    return scrollSwitches
+  }
+
   init()
   
   return (
     <div className="scroll-view">
       <ul className="scroll-view__switcher">
-        <ScrollSwitch onClick={()=>{switchByClickHandler(0)}} imageClassName="switch__image_hold" id="0"/>
-        <ScrollSwitch onClick={()=>{switchByClickHandler(1)}} className="switch_overflow" id="1"/>
-        <ScrollSwitch onClick={()=>{switchByClickHandler(2)}} className="switch_overflow" id="2"/>
+        {scrollSwitches}
       </ul>
     </div>
   );
