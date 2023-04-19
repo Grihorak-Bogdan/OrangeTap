@@ -2,3 +2,7 @@ main{
   max-height: 100vh;
   overflow: hidden;
 }
+
+::-webkit-scrollbar{
+  width: 0;
+}
