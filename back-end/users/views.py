@@ -107,8 +107,8 @@ def chat(request , id):
 	user = request.user
 	profile = User.objects.get(id=friend.id)
 	chats = ChatMessage.objects.all()
-	rec_chats = ChatMessage.objects.filter(msg_sender=profile , msg_receiver=user ,seen=False)
-	rec_chats.update(seen=True)
+	rec_chats = ChatMessage.objects.filter(msg_sender=profile , msg_receiver=user )
+	
 	form = ChatMessageForm()
 	if request.method == "POST":
 		form = ChatMessageForm(request.POST)
