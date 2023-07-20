@@ -93,12 +93,18 @@ def logout(request):
 	auth.logout(request)
 	return HttpResponseRedirect(reverse('users:login'))
 
-def direct(request):
+def direct(request ):
+	#friend = User.objects.get(id=id)
 	user = request.user
 	friends = user.friends.all()
+	#profile = User.objects.get(id=friend.id)
+	pending = ChatMessage.objects.filter(seen=False)
+	#msg_sender = ChatMessage.objects.filter(msg_sender=profile )
 	return render(request, 'users/direct.html' , {
 		"friends": friends, 
 		"auth": request.user.is_active ,
+		
+		"pending": pending,
 	})
 
 def chat(request , id):
@@ -107,8 +113,10 @@ def chat(request , id):
 	user = request.user
 	profile = User.objects.get(id=friend.id)
 	chats = ChatMessage.objects.all()
-	rec_chats = ChatMessage.objects.filter(msg_sender=profile , msg_receiver=user )
 	
+	rec_chats = ChatMessage.objects.filter(msg_sender=profile , msg_receiver=user , seen=False)
+
+	rec_chats.update(msg_sender=profile , msg_receiver=user , seen=True)
 	form = ChatMessageForm()
 	if request.method == "POST":
 		form = ChatMessageForm(request.POST)
@@ -118,6 +126,7 @@ def chat(request , id):
 			chat_message.msg_receiver = profile
 			chat_message.save()
 			return redirect("users:chat", id=friend.id)
+			
 	return render(request, 'users/chat.html', {
 		"friend" : friend, 
 		"form" : form,
@@ -134,7 +143,7 @@ def sentMessages(request, id):
 	profile = User.objects.get(id=friend.id)
 	data = json.loads(request.body)
 	new_chat = data["msg"]
-	new_chat_message = ChatMessage.objects.create(body=new_chat,msg_sender=user,msg_receiver=profile,seen=False)
+	new_chat_message = ChatMessage.objects.create(body=new_chat,msg_sender=user,msg_receiver=profile, seen=False)
 	return JsonResponse(new_chat_message.body, safe=False)
 
 def receivedMessages(request, id):
@@ -142,17 +151,18 @@ def receivedMessages(request, id):
 	friend = User.objects.get(id=id)
 	profile = User.objects.get(id=friend.id)
 	arr = []
-	chats = ChatMessage.objects.filter(msg_sender=profile, msg_receiver=user)
+	chats = ChatMessage.objects.filter(msg_sender=profile, msg_receiver=user, seen=False)
 	for chat in chats:
 		arr.append(chat.body)
 	return JsonResponse(arr, safe=False)
 
 
+
 def chatNotification(request):
 	user = request.user
-	friends = User.objects.all()
+	friends = user.friends.all()
 	arr = []
 	for friend in friends:
-		chats = ChatMessage.objects.filter(msg_sender__id=friend.id, msg_receiver=user, seen=False)
+		chats = ChatMessage.objects.filter(msg_sender__id=friend.id, msg_receiver=user , seen=False)
 		arr.append(chats.count())
 	return JsonResponse(arr, safe=False)

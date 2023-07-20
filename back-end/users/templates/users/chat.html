@@ -4,6 +4,7 @@
 {%block css%}
 <link rel="stylesheet" href="{% static 'main_page.css' %}">
 <link rel="stylesheet" href="{% static 'styles.css' %}">
+
 {%endblock%}
 
 {% block content%}
@@ -11,7 +12,7 @@
 		<div class="user_conteiner">
 			<h2 style="padding:0 50px"><a href="{% url 'users:profile' friend.username %}" style="color:black;">{{ friend.username }}</a></h2>
 			
-			<div class="bord_mess" id="bord_mess">
+			<div class="bord_mess" id="bord_mess" >
 				{%for chat_user in chats %}
 				{%if chat_user.msg_sender == user and chat_user.msg_receiver == profile %}
 					<div class="border_msg_receiver">
@@ -39,6 +40,7 @@
 		</div>
 	</main>
 	<script>
+		
 		function getCookie(name) {
 			let cookieValue = null;
 			if (document.cookie && document.cookie !== '') {
